@@ -11,15 +11,13 @@ class Job
     after(180){ func.call}
   end
 
-  def later(hour, data)
+  def later(hour)
     time_to_wait = due_in_sec(hour)
-    after(5) do
+    after(time_to_wait) do
       begin
-        puts data
-        puts time_to_wait
-        #trigger_ci_build
+        trigger_ci_build
       ensure
-        later(hour, data + 1)
+        later(hour)
       end
     end
   end
