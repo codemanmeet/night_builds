@@ -6,8 +6,6 @@ gem 'rails'
 
 gem 'pg'
 
-gem 'sqlite3'
-
 # Use SCSS for stylesheets
 gem 'sass-rails'
 
