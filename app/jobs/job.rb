@@ -56,7 +56,7 @@ class Job
   end
 
   def temp_github_url
-    "ssh://git@github.com/codemanmeet/workato.git"
+    "https://github.com/codemanmeet/workato.git"
   end
 
   def touch_readme
