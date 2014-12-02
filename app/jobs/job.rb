@@ -16,6 +16,7 @@ class Job
     after(5) do
       begin
         puts data
+        puts time_to_wait
         #trigger_ci_build
       ensure
         later(hour, data + 1)
