@@ -15,6 +15,7 @@ class Job
     time_to_wait = due_in_sec(hour)
     after(time_to_wait) do
       begin
+        puts time_to_wait
         trigger_ci_build
       ensure
         later(hour)
