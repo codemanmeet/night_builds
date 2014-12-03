@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   respond_to :json, :html
 
-  skip_before_filter :verify_authenticity_token, :only => [:hook]
+  skip_before_filter :verify_authenticity_token
 
   before_action :verify_auth_token, only: :hook
 
@@ -13,6 +13,7 @@ class HomeController < ApplicationController
 
   def hook
     #process_deploy_hooks
+    puts "hello"
     Job.new.async.sanity_build(method(:trigger_ci_build))
     render nothing: true
   end
