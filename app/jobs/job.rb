@@ -56,7 +56,7 @@ class Job
   end
 
   def temp_github_url
-    "https://github.com/codemanmeet/workato.git"
+    "https://#{ENV['TESTING_TOKEN']}@github.com/codemanmeet/workato.git"
   end
 
   def touch_readme
