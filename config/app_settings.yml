@@ -1,0 +1,31 @@
+defaults: &defaults
+
+  app:
+    token: 'HELLO'
+    github_auth_token: <%= ENV['GITHUB_AUTH_TOKEN'] %>
+
+  hooks:
+    slack:
+      url: https://workato.slack.com/services/hooks/heroku
+      method: post
+      params:
+        token: YOUR_TOKEN
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+  app:
+    token: <%= ENV["SECRET_TOKEN_SANITY"] %>
+    github_auth_token: <%= ENV['GITHUB_AUTH_TOKEN'] %>
+
+  hooks:
+    slack:
+      url: https://workato.slack.com/services/hooks/heroku
+      params:
+        token: <%= ENV['SLACK_HOOK_TOKEN'] %>
+      method: post
