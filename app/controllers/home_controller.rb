@@ -12,7 +12,7 @@ class HomeController < ApplicationController
   end
 
   def hook
-    process_deploy_hooks
+    #process_deploy_hooks
     Job.new.async.sanity_build(method(:trigger_ci_build))
     render nothing: true
   end
@@ -41,9 +41,9 @@ private
 
   def trigger_ci_build
     prepare_git_working_dir
-    repo = Git.clone(sanity_features_github_url, 'sanity_features', :path => git_working_dir_base)
-    repo.config('user.name', 'Deploy Hooks')
-    repo.config('user.email', 'sanity_features@workato.com')
+    repo = Git.clone(temp_github_url, 'workato_temp', :path => git_working_dir_base)
+    repo.config('user.name', 'Manmeet Saluja')
+    repo.config('user.email', 'manmeet@workato.com')
     message = touch_readme
     repo.add(all: true)
     repo.commit(message)
@@ -55,7 +55,7 @@ private
   end
 
   def git_working_dir
-    File.join(git_working_dir_base, 'sanity_features')
+    File.join(git_working_dir_base, 'workato_temp')
   end
 
   def prepare_git_working_dir
@@ -63,12 +63,12 @@ private
     FileUtils.mkdir_p(git_working_dir)
   end
 
-  def sanity_features_github_url
-    "https://#{AppSettings.app.github_auth_token}@github.com/workato/sanity_features.git"
+  def temp_github_url
+    "https://#{ENV['TESTING_TOKEN']}@github.com/codemanmeet/workato.git"
   end
 
   def touch_readme
-    "Build at #{Time.now}".tap do |message|
+    "Build at #{Time.now} #codeship_feature_tests".tap do |message|
       File.open(File.join(git_working_dir, 'README.md'), 'w') do |file|
         file.puts(message)
       end
