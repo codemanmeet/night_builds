@@ -13,7 +13,6 @@ class HomeController < ApplicationController
 
   def hook
     #process_deploy_hooks
-    puts "hello"
     Job.new.async.sanity_build(method(:trigger_ci_build))
     render nothing: true
   end

@@ -24,7 +24,7 @@ class Job
   end
 
   def due_in_sec(hour)
-    now = Time.now
+    now = Time.zone.now
     due_at = Time.parse(hour)
     due_in = due_at - now
     due_in = due_at + 1.day - now if due_in < 0
